@@ -13,7 +13,7 @@
     </div>
 <?php endif; ?>
 
-<form action="/books/store" method="post">
+<form action="/books/store" method="post" enctype="multipart/form-data">
     <label>Title:</label><br>
     <input type="text" name="title"><br><br>
 
@@ -25,6 +25,9 @@
 
     <label>Year:</label><br>
     <input type="number" name="year"><br><br>
+
+    <label>Cover Image:</label><br>
+    <input type="file" name="image"><br><br>
 
     <button type="submit">Save</button>
 </form>
