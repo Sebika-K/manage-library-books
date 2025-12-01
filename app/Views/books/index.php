@@ -19,6 +19,7 @@
         <th>Author</th>
         <th>Genre</th>
         <th>Year</th>
+        <th>Image</th>
         <th>Actions</th>
     </tr>
 
@@ -28,6 +29,13 @@
             <td><?= esc($book['author']); ?></td>
             <td><?= esc($book['genre']); ?></td>
             <td><?= esc($book['year']); ?></td>
+            <td>
+                <?php if ($book['image_path']): ?>
+                    <img src="/uploads/<?= esc($book['image_path']); ?>" width="70">
+                <?php else: ?>
+                    <img src="/uploads/default.jpg" width="70">
+                <?php endif; ?>
+            </td>
             <td>
                 <a href="/books/edit/<?= $book['id']; ?>">Edit</a> |
                 <a href="/books/delete/<?= $book['id']; ?>" onclick="return confirm('Delete this book?');">Delete</a>
