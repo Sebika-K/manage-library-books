@@ -25,9 +25,9 @@ class BookController extends Controller
        $bookModel = new BookModel();
 
         $rules = [
-            'title' => 'required',
-            'author' => 'required',
-            'year' => 'required|numeric',
+            'title' => 'required|min_length[3]',
+            'author' => 'required|min_length[3]',
+            'year' => 'required|numeric|max_length[4]|greater_than_equal_to[0]|less_than_equal_to[' . date('Y') . ']',
         ];
 
         if (!$this->validate($rules)) {
@@ -71,9 +71,9 @@ class BookController extends Controller
         $bookModel = new BookModel();
 
         $rules = [
-            'title' => 'required',
-            'author' => 'required',
-            'year' => 'required|numeric',
+            'title' => 'required|min_length[3]',
+            'author' => 'required|min_length[3]',
+            'year' => 'required|numeric|max_length[4]|greater_than_equal_to[0]|less_than_equal_to[' . date('Y') . ']',
         ];
 
         if (!$this->validate($rules)) {
