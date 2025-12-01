@@ -116,6 +116,17 @@ class BookController extends Controller
     public function delete($id)
     {
         $bookModel = new BookModel();
+        $book = $bookModel->find($id);
+
+        // Delete image file if not default
+        if ($book['image_path'] && $book['image_path'] !== 'default.jpg') {
+            $filePath = 'uploads/' . $book['image_path'];
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+        }
+
+        // Delete DB row
         $bookModel->delete($id);
 
         return redirect()->to('/books')->with('success', 'Book deleted successfully.');
