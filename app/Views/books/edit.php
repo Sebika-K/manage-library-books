@@ -13,7 +13,7 @@
     </div>
 <?php endif; ?>
 
-<form action="/books/update/<?= $book['id']; ?>" method="post">
+<form action="/books/update/<?= $book['id']; ?>" method="post" enctype="multipart/form-data">
 
     <label>Title:</label><br>
     <input type="text" name="title" value="<?= esc($book['title']); ?>"><br><br>
@@ -26,6 +26,19 @@
 
     <label>Year:</label><br>
     <input type="number" name="year" value="<?= esc($book['year']); ?>"><br><br>
+
+    <p>Current Image:</p>
+
+    <?php if ($book['image_path']): ?>
+        <img src="/uploads/<?= $book['image_path']; ?>" width="100">
+    <?php else: ?>
+        <p>No image available</p>
+    <?php endif; ?>
+
+    <br><br>
+
+    <label>Upload New Image:</label><br>
+    <input type="file" name="image"><br><br>
 
     <button type="submit">Update</button>
 </form>
