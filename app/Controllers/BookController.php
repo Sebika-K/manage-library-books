@@ -22,10 +22,7 @@ class BookController extends Controller
 
     public function store()
     {
-        $bookModel = new BookModel();
-
-        // Basic validation
-        $validation = \Config\Services::validation();
+       $bookModel = new BookModel();
 
         $rules = [
             'title' => 'required',
@@ -39,12 +36,23 @@ class BookController extends Controller
             ]);
         }
 
-        // For now: no image upload in Phase 3
+        // Handle image upload
+        $imageFile = $this->request->getFile('image');
+        $imageName = null;
+
+        if ($imageFile && $imageFile->isValid() && !$imageFile->hasMoved()) {
+            $imageName = $imageFile->getRandomName();
+            $imageFile->move('uploads', $imageName);
+        } else {
+            $imageName = 'default.jpg';
+        }
+
         $bookModel->save([
             'title' => $this->request->getPost('title'),
             'author' => $this->request->getPost('author'),
             'genre' => $this->request->getPost('genre'),
             'year' => $this->request->getPost('year'),
+            'image_path' => $imageName
         ]);
 
         return redirect()->to('/books')->with('success', 'Book added successfully.');
