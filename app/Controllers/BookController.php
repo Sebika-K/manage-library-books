@@ -83,11 +83,31 @@ class BookController extends Controller
             ]);
         }
 
+        // Get existing book
+        $book = $bookModel->find($id);
+        $oldImage = $book['image_path'];
+
+        // Handle new image if uploaded
+        $imageFile = $this->request->getFile('image');
+
+        if ($imageFile && $imageFile->isValid() && !$imageFile->hasMoved()) {
+            $imageName = $imageFile->getRandomName();
+            $imageFile->move('uploads', $imageName);
+
+            // Delete old image if not default
+            if ($oldImage && $oldImage !== 'default.jpg' && file_exists('uploads/' . $oldImage)) {
+                unlink('uploads/' . $oldImage);
+            }
+        } else {
+            $imageName = $oldImage; // Keep existing
+        }
+
         $bookModel->update($id, [
             'title' => $this->request->getPost('title'),
             'author' => $this->request->getPost('author'),
             'genre' => $this->request->getPost('genre'),
             'year' => $this->request->getPost('year'),
+            'image_path' => $imageName
         ]);
 
         return redirect()->to('/books')->with('success', 'Book updated successfully.');
