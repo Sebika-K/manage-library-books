@@ -4,6 +4,7 @@
     <title>Add Book</title>
 </head>
 <body>
+<?= $this->include('layouts/header'); ?>
 
 <h1>Add New Book</h1>
 
@@ -31,6 +32,7 @@
 
     <button type="submit">Save</button>
 </form>
+<?= $this->include('layouts/footer'); ?>
 
 </body>
 </html>

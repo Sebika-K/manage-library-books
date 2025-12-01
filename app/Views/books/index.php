@@ -4,6 +4,7 @@
     <title>List of Books</title>
 </head>
 <body>
+<?= $this->include('layouts/header'); ?>
 
 <h1>List of Books</h1>
 
@@ -43,6 +44,7 @@
         </tr>
     <?php endforeach; ?>
 </table>
+<?= $this->include('layouts/footer'); ?>
 
 </body>
 </html>
