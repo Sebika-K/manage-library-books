@@ -96,8 +96,6 @@ http://localhost:8080
 
 ## 📂 Folder Structure Overview
 ```
-swift
-Copy code
 app/
   Controllers/     → BookController.php
   Models/          → BookModel.php
