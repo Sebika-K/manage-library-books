@@ -1,68 +1,136 @@
-# CodeIgniter 4 Application Starter
+# 📚 Manage Library Books - CodeIgniter 4 CRUD Application
 
-## What is CodeIgniter?
+A simple library inventory system built with CodeIgniter 4, featuring:
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+- Create, Read, Update, Delete (CRUD) book records  
+- Optional cover image upload  
+- Form validation  
+- Clean UI with custom color scheme (**#F4862C**, **#CDF6FF**)  
+- Responsive table & styled buttons  
+- Image replacement and deletion handling  
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+This project was built as part of the **AMSB Volunteer Prep Assignment**.
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+---
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+## 🚀 Features
 
-## Installation & updates
+### 📘 Add Book
+- Enter title, author, genre, publication year  
+- Upload a cover image (optional)  
+- Default placeholder image used if none uploaded  
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+### 📖 View Books
+- List of all books displayed in a styled table  
+- Shows title, author, genre, year, and cover image  
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+### ✏️ Edit Book
+- Form pre-filled with existing values  
+- Optionally upload a new image  
+- Old image deleted automatically  
 
-## Setup
+### 🗑 Delete Book
+- Confirmation dialog  
+- Deletes both record and associated image  
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+### ✔ Form Validation
+- Required: title, author, publication year  
+- Year must be numeric and ≤ current year  
 
-## Important Change with index.php
+---
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+## 🛠 Tech Stack
+- **Backend:** PHP 8, CodeIgniter 4  
+- **Frontend:** HTML, CSS  
+- **Database:** MySQL  
+- **Tools:** Composer, Git  
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+---
 
-**Please** read the user guide for a better explanation of how CI4 works!
+## 📥 Installation & Setup
 
-## Repository Management
+### 1️⃣ Clone the repository
+```
+git clone https://github.com/YOUR_USERNAME/manage-library-books.git
+cd manage-library-books
+```
+### 2️⃣ Install dependencies
+```
+composer install
+```
+### 3️⃣ Configure environment
+Copy the example env file:
+```
+cp env .env
+```
+Enable development mode:
+```
+CI_ENVIRONMENT = development
+```
+Database config:
+```
+database.default.hostname = localhost
+database.default.database = library_db
+database.default.username = root
+database.default.password =
+database.default.DBDriver = MySQLi
+```
+### 4️⃣ Create the MySQL database
+```
+mysql -u root
+```
+Inside MySQL:
+```
+CREATE DATABASE library_db;
+EXIT;
+```
+### 5️⃣ Run migrations
+```
+php spark migrate
+```
+### 6️⃣ Start server
+```
+php spark serve
+```
+Visit:
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+http://localhost:8080
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+## 📂 Folder Structure Overview
+```
+swift
+Copy code
+app/
+  Controllers/     → BookController.php
+  Models/          → BookModel.php
+  Views/books/     → index.php, create.php, edit.php
+  Views/layouts/   → header.php, footer.php
 
-## Server Requirements
+public/uploads/
+  default.jpg       → Placeholder image
+```
 
-PHP version 8.1 or higher is required, with the following extensions installed:
+## 🎨 Design Decisions & Explanation
+1. MVC Architecture
+- Model = database logic
+- Controller = request handling + validation
+- Views = UI
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+2. Image Upload Handling
+- Uploaded images stored in public/uploads/
+- Random filenames avoid collisions
+- Old images removed automatically
+- Default placeholder used when no file uploaded
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> - The end of life date for PHP 8.1 will be December 31, 2025.
+3. Validation Rules
+- Minimum character requirements for title & author
+- Year ≤ current year
+- Enforces data consistency
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+4. UI Theme
+- #F4862C → primary accents
+- #CDF6FF → soft background
+- Clean, readable layout
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+5. Route Grouping
+All book routes grouped under /books for clean structure.
