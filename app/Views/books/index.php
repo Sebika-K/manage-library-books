@@ -6,13 +6,13 @@
 <body>
 <?= $this->include('layouts/header'); ?>
 
-<h1>List of Books</h1>
+<h2>List of Books</h2>
 
 <?php if(session()->getFlashdata('success')): ?>
     <p style="color: green;"><?= session()->getFlashdata('success'); ?></p>
 <?php endif; ?>
 
-<a href="/books/create">Add New Book</a>
+<a href="/books/create" class="btn-primary">+ Add New Book</a>
 
 <table border="1" cellpadding="10" cellspacing="0">
     <tr>
@@ -38,8 +38,14 @@
                 <?php endif; ?>
             </td>
             <td>
-                <a href="/books/edit/<?= $book['id']; ?>">Edit</a> |
-                <a href="/books/delete/<?= $book['id']; ?>" onclick="return confirm('Delete this book?');">Delete</a>
+                <a href="/books/edit/<?= $book['id']; ?>" class="btn-primary" style="padding:6px 12px; font-size:14px;">Edit</a>
+
+                <a href="/books/delete/<?= $book['id']; ?>" 
+                onclick="return confirm('Delete this book?');"
+                class="btn-primary"
+                style="background-color:#d9534f; padding:6px 12px; font-size:14px;">
+                Delete
+                </a>
             </td>
         </tr>
     <?php endforeach; ?>
