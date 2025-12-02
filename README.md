@@ -9,8 +9,6 @@ A simple library inventory system built with CodeIgniter 4, featuring:
 - Responsive table & styled buttons  
 - Image replacement and deletion handling  
 
-This project was built as part of the **AMSB Volunteer Prep Assignment**.
-
 ---
 
 ## 🚀 Features
